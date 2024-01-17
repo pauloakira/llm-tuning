@@ -1,0 +1,12 @@
+torch 
+torchvision 
+torchaudio
+scikit-learn
+matplotlib
+imbalanced-learn
+seaborn
+nltk
+textblob==0.17.1
+gensim
+huggingface_hub 
+hf_transfer
