@@ -10,3 +10,6 @@ textblob==0.17.1
 gensim
 huggingface_hub 
 hf_transfer
+transformers
+einops
+accelerate
