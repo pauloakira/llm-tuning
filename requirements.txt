@@ -13,3 +13,4 @@ hf_transfer
 transformers
 einops
 accelerate
+mlx
