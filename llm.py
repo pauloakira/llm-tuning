@@ -1,10 +1,15 @@
 # Python libs
 import torch
+import mlflow
 from transformers import GPTNeoForCausalLM, GPT2Tokenizer
 
 torch.backends.quantized.engine = 'qnnpack'  # For ARM CPUs
 
 def gpt_neo():
+    # Setup MLFlow
+    run_id = "gpt_neo"
+    run = mlflow.start_run(run_id=run_id)
+
     model_path = "llm_gpt_neo"
 
     print("Loading GPT-Neo 1.3B model...")
@@ -39,6 +44,8 @@ def gpt_neo():
     )
 
     gen_text = tokenizer.batch_decode(gen_tokens)[0]
+
+    mlflow.end_run()
 
     return gen_text
 
