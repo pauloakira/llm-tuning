@@ -1,17 +1,14 @@
 # Python libs
+import time
 import torch
 import mlflow
 from transformers import GPTNeoForCausalLM, GPT2Tokenizer
-
-# Custom libs
-from utils import measureExecTime
 
 torch.backends.quantized.engine = 'qnnpack'  # For ARM CPUs
 
 # Test Prompt
 prompt = ("What is the capital of Brazil?")
 
-@measureExecTime
 def gpt_neo(qunatize: bool=False)-> str:
     model_path = "llm_gpt_neo"
 
@@ -26,6 +23,8 @@ def gpt_neo(qunatize: bool=False)-> str:
     # Quantize model
     if qunatize:
         model = torch.quantization.quantize_dynamic(model, {torch.nn.Linear}, dtype=torch.float16)
+
+    start_time = time.time()
 
     encoding = tokenizer(prompt, return_tensors="pt", padding=True, truncation=True)
     input_ids = encoding["input_ids"]
@@ -45,13 +44,21 @@ def gpt_neo(qunatize: bool=False)-> str:
 
     gen_text = tokenizer.batch_decode(gen_tokens)[0]
 
-    return gen_text
+    execution_time = time.time() - start_time
+
+    return gen_text, execution_time
 
 if __name__ == "__main__":
-    
     # Setup MLFlow
-    run_id = "gpt_neo"
-    run = mlflow.start_run(run_id=run_id)
-    print(gpt_neo())
+    run = mlflow.start_run()
+
+    # Log parameters
+    mlflow.log_param("prompt", prompt)
+
+    # Exectute LLM Inference
+    response, execution_time = gpt_neo()
+
+    mlflow.log_param("execution_time", execution_time)
+    mlflow.log_param("response", response)
 
     mlflow.end_run()

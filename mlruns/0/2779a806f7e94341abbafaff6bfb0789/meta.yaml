@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/pauloakira/Main/_repos/llm-tuning/mlruns/0/2779a806f7e94341abbafaff6bfb0789/artifacts
+end_time: 1711927457597
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 2779a806f7e94341abbafaff6bfb0789
+run_name: enthused-snipe-524
+run_uuid: 2779a806f7e94341abbafaff6bfb0789
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1711927454474
+status: 3
+tags: []
+user_id: pauloakira
