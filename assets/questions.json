@@ -1,0 +1,52 @@
+[
+    {
+        "question": "What is the capital of France?",
+        "answers": "Paris",
+        "category": "factual"
+    },
+    {
+        "question": "Who wrote 'To Kill a Mockingbird'?",
+        "answers": "Harper Lee",
+        "category": "factual"
+    },
+    {
+        "question": "What is 15 divided by 3?",
+        "answers": "5",
+        "category": "mathematical"
+    },
+    {
+        "question": "If you have five apples and you give away two, how many do you have left?",
+        "answers": "3",
+        "category": "mathematical"
+    },
+    {
+        "question": "A bat and a ball cost $1.10 in total. The bat costs $1.00 more than the ball. How much does the ball cost?",
+        "answers": "5 cents",
+        "category": "logical_reasoning"
+    },
+    {
+        "question": "If all Bloops are Razzies and all Razzies are Lazzies, are all Bloops definitely Lazzies?",
+        "answers": "Yes",
+        "category": "logical_reasoning"
+    },
+    {
+        "question": "What is the largest mammal in the world?",
+        "answers": "Blue whale",
+        "category": "trivia"
+    },
+    {
+        "question": "In what year did the Titanic sink?",
+        "answers": "1912",
+        "category": "trivia"
+    },
+    {
+        "question": "What day of the week does Christmas fall on in 2025?",
+        "answers": "Thursday",
+        "category": "temporal_knowledge"
+    },
+    {
+        "question": "How many months are there in a decade?",
+        "answers": "120",
+        "category": "temporal_knowledge"
+    }
+]
