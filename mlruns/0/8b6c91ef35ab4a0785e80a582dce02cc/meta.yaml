@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/pauloakira/Main/_repos/llm-tuning/mlruns/0/8b6c91ef35ab4a0785e80a582dce02cc/artifacts
+end_time: 1711933828873
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 8b6c91ef35ab4a0785e80a582dce02cc
+run_name: bold-fly-703
+run_uuid: 8b6c91ef35ab4a0785e80a582dce02cc
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1711933828864
+status: 3
+tags: []
+user_id: pauloakira

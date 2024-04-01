@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/pauloakira/Main/_repos/llm-tuning/mlruns/0/a2ea58284ed24b4895da9b429d42b20e/artifacts
+end_time: 1711933807253
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: a2ea58284ed24b4895da9b429d42b20e
+run_name: intrigued-yak-284
+run_uuid: a2ea58284ed24b4895da9b429d42b20e
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1711933807243
+status: 4
+tags: []
+user_id: pauloakira

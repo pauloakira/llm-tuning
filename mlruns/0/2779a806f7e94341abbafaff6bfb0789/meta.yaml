@@ -1,8 +1,9 @@
 artifact_uri: file:///Users/pauloakira/Main/_repos/llm-tuning/mlruns/0/2779a806f7e94341abbafaff6bfb0789/artifacts
+deleted_time: 1711933583917
 end_time: 1711927457597
 entry_point_name: ''
 experiment_id: '0'
-lifecycle_stage: active
+lifecycle_stage: deleted
 run_id: 2779a806f7e94341abbafaff6bfb0789
 run_name: enthused-snipe-524
 run_uuid: 2779a806f7e94341abbafaff6bfb0789

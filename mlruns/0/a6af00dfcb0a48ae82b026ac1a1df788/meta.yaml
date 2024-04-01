@@ -1,8 +1,9 @@
 artifact_uri: file:///Users/pauloakira/Main/_repos/llm-tuning/mlruns/0/a6af00dfcb0a48ae82b026ac1a1df788/artifacts
+deleted_time: 1711933583917
 end_time: 1711927071228
 entry_point_name: ''
 experiment_id: '0'
-lifecycle_stage: active
+lifecycle_stage: deleted
 run_id: a6af00dfcb0a48ae82b026ac1a1df788
 run_name: trusting-shrimp-439
 run_uuid: a6af00dfcb0a48ae82b026ac1a1df788

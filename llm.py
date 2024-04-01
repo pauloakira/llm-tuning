@@ -49,16 +49,26 @@ def gpt_neo(qunatize: bool=False)-> str:
     return gen_text, execution_time
 
 if __name__ == "__main__":
-    # Setup MLFlow
-    run = mlflow.start_run()
+    # Parameters setup
+    quantize = False
+    do_sample = True
+    temperature = 0.1
+    max_length = 30
+    top_k = 50
+    top_p = 0.95
+    num_return_sequences = 1
 
-    # Log parameters
-    mlflow.log_param("prompt", prompt)
-
-    # Exectute LLM Inference
     response, execution_time = gpt_neo()
 
-    mlflow.log_param("execution_time", execution_time)
-    mlflow.log_param("response", response)
+    with mlflow.start_run():
+        mlflow.log_param("quantize", quantize)
+        mlflow.log_param("do_sample", do_sample)
+        mlflow.log_param("temperature", temperature)
+        mlflow.log_param("max_length", max_length)
+        mlflow.log_param("top_k", top_k)
+        mlflow.log_param("top_p", top_p)
+        mlflow.log_param("num_return_sequences", num_return_sequences)
+        mlflow.log_metric("execution_time", execution_time)
+        mlflow.log_text("response", response)
 
-    mlflow.end_run()
+        
