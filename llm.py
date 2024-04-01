@@ -4,12 +4,12 @@ import torch
 import mlflow
 from transformers import GPTNeoForCausalLM, GPT2Tokenizer
 
+# Custom libs
+from performance import evaluateResponse, standardizeResponse
+
 torch.backends.quantized.engine = 'qnnpack'  # For ARM CPUs
 
-# Test Prompt
-prompt = ("What is the capital of Brazil?")
-
-def gpt_neo(qunatize: bool=False)-> str:
+def gpt_neo(prompt:str, quantize: bool=False)-> str:
     model_path = "llm_gpt_neo"
 
     print("Loading GPT-Neo 1.3B model...")
@@ -21,7 +21,7 @@ def gpt_neo(qunatize: bool=False)-> str:
     tokenizer.pad_token = tokenizer.eos_token
 
     # Quantize model
-    if qunatize:
+    if quantize:
         model = torch.quantization.quantize_dynamic(model, {torch.nn.Linear}, dtype=torch.float16)
 
     start_time = time.time()
@@ -36,7 +36,7 @@ def gpt_neo(qunatize: bool=False)-> str:
         pad_token_id=tokenizer.eos_token_id,
         do_sample=True,  # Enable sampling to introduce randomness
         temperature=0.1,  # Adjust temperature to balance randomness and determinism
-        max_length=30,  # Adjust max_length to fit your needs
+        max_length=10,  # Adjust max_length to fit your needs
         top_k=50,  # Consider adjusting top_k
         top_p=0.95,  # Consider adjusting top_p
         num_return_sequences=1,  # Set the number of responses you want
@@ -50,25 +50,37 @@ def gpt_neo(qunatize: bool=False)-> str:
 
 if __name__ == "__main__":
     # Parameters setup
-    quantize = False
-    do_sample = True
-    temperature = 0.1
-    max_length = 30
-    top_k = 50
-    top_p = 0.95
-    num_return_sequences = 1
+    # quantize = False
+    # do_sample = True
+    # temperature = 0.1
+    # max_length = 30
+    # top_k = 50
+    # top_p = 0.95
+    # num_return_sequences = 1
 
-    response, execution_time = gpt_neo()
+    # response, execution_time = gpt_neo()
 
-    with mlflow.start_run():
-        mlflow.log_param("quantize", quantize)
-        mlflow.log_param("do_sample", do_sample)
-        mlflow.log_param("temperature", temperature)
-        mlflow.log_param("max_length", max_length)
-        mlflow.log_param("top_k", top_k)
-        mlflow.log_param("top_p", top_p)
-        mlflow.log_param("num_return_sequences", num_return_sequences)
-        mlflow.log_metric("execution_time", execution_time)
-        mlflow.log_text("response", response)
+    # with mlflow.start_run():
+    #     mlflow.log_param("quantize", quantize)
+    #     mlflow.log_param("do_sample", do_sample)
+    #     mlflow.log_param("temperature", temperature)
+    #     mlflow.log_param("max_length", max_length)
+    #     mlflow.log_param("top_k", top_k)
+    #     mlflow.log_param("top_p", top_p)
+    #     mlflow.log_param("num_return_sequences", num_return_sequences)
+    #     mlflow.log_metric("execution_time", execution_time)
+    #     mlflow.log_text("response", response)
+
+    response, execution_time = gpt_neo(prompt="What is 15 divided by 3?")
+
+    # Evaluate response
+    correct_answer = "5"
+    acceptance_threshold = 80
+    is_correct, match_score = evaluateResponse(response, correct_answer, acceptance_threshold)
+    print(f"Response: {response}")
+    print(f"Standardized response: {standardizeResponse(response)}")
+    print(f"Correct answer: {correct_answer}")
+    print(f"Match score: {match_score}")
+    print(f"Is correct: {is_correct}")
 
         
