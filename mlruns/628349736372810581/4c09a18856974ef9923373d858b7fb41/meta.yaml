@@ -1,0 +1,16 @@
+artifact_uri: file:///Users/pauloakira/Main/_repos/llm-tuning/mlruns/628349736372810581/4c09a18856974ef9923373d858b7fb41/artifacts
+deleted_time: 1712032255364
+end_time: 1712031397031
+entry_point_name: ''
+experiment_id: '628349736372810581'
+lifecycle_stage: deleted
+run_id: 4c09a18856974ef9923373d858b7fb41
+run_name: nimble-moose-7
+run_uuid: 4c09a18856974ef9923373d858b7fb41
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1712031397027
+status: 4
+tags: []
+user_id: pauloakira

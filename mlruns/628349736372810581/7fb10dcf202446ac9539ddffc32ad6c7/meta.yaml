@@ -1,0 +1,16 @@
+artifact_uri: file:///Users/pauloakira/Main/_repos/llm-tuning/mlruns/628349736372810581/7fb10dcf202446ac9539ddffc32ad6c7/artifacts
+deleted_time: 1712032255356
+end_time: 1712032172565
+entry_point_name: ''
+experiment_id: '628349736372810581'
+lifecycle_stage: deleted
+run_id: 7fb10dcf202446ac9539ddffc32ad6c7
+run_name: nimble-fly-469
+run_uuid: 7fb10dcf202446ac9539ddffc32ad6c7
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1712032172561
+status: 3
+tags: []
+user_id: pauloakira

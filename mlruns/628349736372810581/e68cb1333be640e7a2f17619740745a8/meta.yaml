@@ -1,0 +1,16 @@
+artifact_uri: file:///Users/pauloakira/Main/_repos/llm-tuning/mlruns/628349736372810581/e68cb1333be640e7a2f17619740745a8/artifacts
+deleted_time: 1712032255364
+end_time: 1712031329074
+entry_point_name: ''
+experiment_id: '628349736372810581'
+lifecycle_stage: deleted
+run_id: e68cb1333be640e7a2f17619740745a8
+run_name: languid-roo-463
+run_uuid: e68cb1333be640e7a2f17619740745a8
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1712031329070
+status: 4
+tags: []
+user_id: pauloakira

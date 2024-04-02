@@ -3,10 +3,12 @@ import time
 import json
 import torch
 import mlflow
+from typing import List
 from transformers import GPTNeoForCausalLM, GPT2Tokenizer
 
 # Custom libs
-from performance import evaluateResponse, standardizeResponse
+from models import Evaluation
+from performance import evaluateResponse
 
 torch.backends.quantized.engine = 'qnnpack'  # For ARM CPUs
 
@@ -49,15 +51,18 @@ def gpt_neo(prompt:str, quantize: bool=False)-> str:
 
     return gen_text, execution_time
 
-def evaluate():
+def evaluate()-> List[Evaluation]:
     with open("assets/questions.json", "r") as file:
         data = json.load(file)
+
+    evaluation_list = []
     
     for item in data:
+            start_time = time.time()
             prompt = item["prompt"]
             response, execution_time = gpt_neo(prompt)
             correct_answer = item['expected_completion']
-            is_correct, match_score = evaluateResponse(response, correct_answer, prompt, 80)
+            is_correct, match_score = evaluateResponse(response, correct_answer, prompt, 70)
             print(f"Prompt: {prompt}")
             print(f"Response: {response}")
             print(f"Correct answer: {correct_answer}")
@@ -66,42 +71,42 @@ def evaluate():
             print(f"Execution time: {execution_time}")
             print("-------------------\n")
 
+            elapsed_time = time.time() - start_time
+
+            evaluation = Evaluation(prompt=prompt, 
+                                    expected_completion=correct_answer, 
+                                    response=response, 
+                                    match_score=match_score, 
+                                    is_correct=bool(is_correct), 
+                                    execution_time=elapsed_time)
+
+            evaluation_list.append(evaluation)
+
+    return evaluation_list
+
 if __name__ == "__main__":
-    # Parameters setup
-    # quantize = False
-    # do_sample = True
-    # temperature = 0.1
-    # max_length = 30
-    # top_k = 50
-    # top_p = 0.95
-    # num_return_sequences = 1
+    # Set MLFlow experiment
+    mlflow.set_experiment("LLM Evaluation")
 
-    # response, execution_time = gpt_neo()
+    # Evaluate the model
+    evaluations = evaluate()
 
-    # with mlflow.start_run():
-    #     mlflow.log_param("quantize", quantize)
-    #     mlflow.log_param("do_sample", do_sample)
-    #     mlflow.log_param("temperature", temperature)
-    #     mlflow.log_param("max_length", max_length)
-    #     mlflow.log_param("top_k", top_k)
-    #     mlflow.log_param("top_p", top_p)
-    #     mlflow.log_param("num_return_sequences", num_return_sequences)
-    #     mlflow.log_metric("execution_time", execution_time)
-    #     mlflow.log_text("response", response)
+    # Log evaluations to MLFlow
+    for item in evaluations:
+        with mlflow.start_run():
+            mlflow.log_params({
+                "prompt": item.prompt,
+                "expected_completion": item.expected_completion,
+                "response": item.response
+            })
+            is_correct_metric = 1.0 if item.is_correct else 0.0
+            mlflow.log_metrics({
+                "match_score": item.match_score,
+                "execution_time": item.execution_time,
+                "is_correct": is_correct_metric
+            })
 
-    # prompt = "15 divided by 3 is equal to "
-    # response, execution_time = gpt_neo(prompt=prompt)
-
-    # # Evaluate response
-    # correct_answer = "5"
-    # acceptance_threshold = 80
-    # is_correct, match_score = evaluateResponse(response, correct_answer, prompt, acceptance_threshold)
-    # print(f"Response: {response}")
-    # print(f"Standardized response: {standardizeResponse(response)}")
-    # print(f"Correct answer: {correct_answer}")
-    # print(f"Match score: {match_score}")
-    # print(f"Is correct: {is_correct}")
-
-    evaluate()
+    print("Evaluation completed.")
+    
 
         

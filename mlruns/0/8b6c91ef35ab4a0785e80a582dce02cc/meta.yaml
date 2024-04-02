@@ -1,8 +1,9 @@
 artifact_uri: file:///Users/pauloakira/Main/_repos/llm-tuning/mlruns/0/8b6c91ef35ab4a0785e80a582dce02cc/artifacts
+deleted_time: 1712032203684
 end_time: 1711933828873
 entry_point_name: ''
 experiment_id: '0'
-lifecycle_stage: active
+lifecycle_stage: deleted
 run_id: 8b6c91ef35ab4a0785e80a582dce02cc
 run_name: bold-fly-703
 run_uuid: 8b6c91ef35ab4a0785e80a582dce02cc

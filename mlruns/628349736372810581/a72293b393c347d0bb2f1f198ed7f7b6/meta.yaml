@@ -1,0 +1,16 @@
+artifact_uri: file:///Users/pauloakira/Main/_repos/llm-tuning/mlruns/628349736372810581/a72293b393c347d0bb2f1f198ed7f7b6/artifacts
+deleted_time: 1712032255357
+end_time: 1712032172560
+entry_point_name: ''
+experiment_id: '628349736372810581'
+lifecycle_stage: deleted
+run_id: a72293b393c347d0bb2f1f198ed7f7b6
+run_name: likeable-smelt-896
+run_uuid: a72293b393c347d0bb2f1f198ed7f7b6
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1712032172556
+status: 3
+tags: []
+user_id: pauloakira

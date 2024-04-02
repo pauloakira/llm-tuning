@@ -1,0 +1,16 @@
+artifact_uri: file:///Users/pauloakira/Main/_repos/llm-tuning/mlruns/628349736372810581/5c2bf15cee6e4cd4b90ba456d44f91c3/artifacts
+deleted_time: 1712032255363
+end_time: 1712032172532
+entry_point_name: ''
+experiment_id: '628349736372810581'
+lifecycle_stage: deleted
+run_id: 5c2bf15cee6e4cd4b90ba456d44f91c3
+run_name: bemused-moth-47
+run_uuid: 5c2bf15cee6e4cd4b90ba456d44f91c3
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1712032172527
+status: 3
+tags: []
+user_id: pauloakira

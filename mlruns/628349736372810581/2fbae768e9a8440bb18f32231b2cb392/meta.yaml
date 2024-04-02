@@ -1,0 +1,16 @@
+artifact_uri: file:///Users/pauloakira/Main/_repos/llm-tuning/mlruns/628349736372810581/2fbae768e9a8440bb18f32231b2cb392/artifacts
+deleted_time: 1712032255366
+end_time: 1712031278191
+entry_point_name: ''
+experiment_id: '628349736372810581'
+lifecycle_stage: deleted
+run_id: 2fbae768e9a8440bb18f32231b2cb392
+run_name: brawny-stag-838
+run_uuid: 2fbae768e9a8440bb18f32231b2cb392
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1712031278187
+status: 4
+tags: []
+user_id: pauloakira

@@ -1,0 +1,16 @@
+artifact_uri: file:///Users/pauloakira/Main/_repos/llm-tuning/mlruns/628349736372810581/a6bcfcb1fd6746ea9aca9465cd7d7126/artifacts
+deleted_time: 1712032255362
+end_time: 1712032172536
+entry_point_name: ''
+experiment_id: '628349736372810581'
+lifecycle_stage: deleted
+run_id: a6bcfcb1fd6746ea9aca9465cd7d7126
+run_name: amazing-cat-594
+run_uuid: a6bcfcb1fd6746ea9aca9465cd7d7126
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1712032172532
+status: 3
+tags: []
+user_id: pauloakira

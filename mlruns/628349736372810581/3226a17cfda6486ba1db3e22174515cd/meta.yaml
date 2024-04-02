@@ -1,0 +1,16 @@
+artifact_uri: file:///Users/pauloakira/Main/_repos/llm-tuning/mlruns/628349736372810581/3226a17cfda6486ba1db3e22174515cd/artifacts
+deleted_time: 1712032255356
+end_time: 1712032172569
+entry_point_name: ''
+experiment_id: '628349736372810581'
+lifecycle_stage: deleted
+run_id: 3226a17cfda6486ba1db3e22174515cd
+run_name: rumbling-stork-753
+run_uuid: 3226a17cfda6486ba1db3e22174515cd
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1712032172565
+status: 3
+tags: []
+user_id: pauloakira

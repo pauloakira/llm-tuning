@@ -1,0 +1,16 @@
+artifact_uri: file:///Users/pauloakira/Main/_repos/llm-tuning/mlruns/628349736372810581/867d30917b814b2fbc07e0ad3a270b2d/artifacts
+deleted_time: 1712032255360
+end_time: 1712032172550
+entry_point_name: ''
+experiment_id: '628349736372810581'
+lifecycle_stage: deleted
+run_id: 867d30917b814b2fbc07e0ad3a270b2d
+run_name: polite-gnat-110
+run_uuid: 867d30917b814b2fbc07e0ad3a270b2d
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1712032172546
+status: 3
+tags: []
+user_id: pauloakira

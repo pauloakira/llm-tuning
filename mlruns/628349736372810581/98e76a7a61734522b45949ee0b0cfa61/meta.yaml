@@ -1,0 +1,16 @@
+artifact_uri: file:///Users/pauloakira/Main/_repos/llm-tuning/mlruns/628349736372810581/98e76a7a61734522b45949ee0b0cfa61/artifacts
+deleted_time: 1712032255361
+end_time: 1712032172541
+entry_point_name: ''
+experiment_id: '628349736372810581'
+lifecycle_stage: deleted
+run_id: 98e76a7a61734522b45949ee0b0cfa61
+run_name: sedate-shrew-38
+run_uuid: 98e76a7a61734522b45949ee0b0cfa61
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1712032172537
+status: 3
+tags: []
+user_id: pauloakira

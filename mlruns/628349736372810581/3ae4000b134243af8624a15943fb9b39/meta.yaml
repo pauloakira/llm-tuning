@@ -1,0 +1,16 @@
+artifact_uri: file:///Users/pauloakira/Main/_repos/llm-tuning/mlruns/628349736372810581/3ae4000b134243af8624a15943fb9b39/artifacts
+deleted_time: 1712032255361
+end_time: 1712032172546
+entry_point_name: ''
+experiment_id: '628349736372810581'
+lifecycle_stage: deleted
+run_id: 3ae4000b134243af8624a15943fb9b39
+run_name: dazzling-goat-622
+run_uuid: 3ae4000b134243af8624a15943fb9b39
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1712032172542
+status: 3
+tags: []
+user_id: pauloakira
