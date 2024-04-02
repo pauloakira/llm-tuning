@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/pauloakira/Main/_repos/llm-tuning/mlruns/628349736372810581/74a8979f316d4d658897a383d16691ab/artifacts
+end_time: 1712032322930
+entry_point_name: ''
+experiment_id: '628349736372810581'
+lifecycle_stage: active
+run_id: 74a8979f316d4d658897a383d16691ab
+run_name: polite-chimp-759
+run_uuid: 74a8979f316d4d658897a383d16691ab
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1712032322926
+status: 3
+tags: []
+user_id: pauloakira

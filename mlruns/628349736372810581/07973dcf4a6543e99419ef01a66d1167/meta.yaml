@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/pauloakira/Main/_repos/llm-tuning/mlruns/628349736372810581/07973dcf4a6543e99419ef01a66d1167/artifacts
+end_time: 1712032322899
+entry_point_name: ''
+experiment_id: '628349736372810581'
+lifecycle_stage: active
+run_id: 07973dcf4a6543e99419ef01a66d1167
+run_name: thoughtful-ray-258
+run_uuid: 07973dcf4a6543e99419ef01a66d1167
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1712032322895
+status: 3
+tags: []
+user_id: pauloakira

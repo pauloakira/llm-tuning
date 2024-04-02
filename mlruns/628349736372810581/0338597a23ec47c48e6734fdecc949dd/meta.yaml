@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/pauloakira/Main/_repos/llm-tuning/mlruns/628349736372810581/0338597a23ec47c48e6734fdecc949dd/artifacts
+end_time: 1712032322889
+entry_point_name: ''
+experiment_id: '628349736372810581'
+lifecycle_stage: active
+run_id: 0338597a23ec47c48e6734fdecc949dd
+run_name: abundant-frog-885
+run_uuid: 0338597a23ec47c48e6734fdecc949dd
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1712032322885
+status: 3
+tags: []
+user_id: pauloakira
