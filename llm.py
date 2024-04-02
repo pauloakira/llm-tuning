@@ -1,5 +1,6 @@
 # Python libs
 import time
+import json
 import torch
 import mlflow
 from transformers import GPTNeoForCausalLM, GPT2Tokenizer
@@ -36,7 +37,7 @@ def gpt_neo(prompt:str, quantize: bool=False)-> str:
         pad_token_id=tokenizer.eos_token_id,
         do_sample=True,  # Enable sampling to introduce randomness
         temperature=0.1,  # Adjust temperature to balance randomness and determinism
-        max_length=10,  # Adjust max_length to fit your needs
+        max_length=30,  # Adjust max_length to fit your needs
         top_k=50,  # Consider adjusting top_k
         top_p=0.95,  # Consider adjusting top_p
         num_return_sequences=1,  # Set the number of responses you want
@@ -47,6 +48,23 @@ def gpt_neo(prompt:str, quantize: bool=False)-> str:
     execution_time = time.time() - start_time
 
     return gen_text, execution_time
+
+def evaluate():
+    with open("assets/questions.json", "r") as file:
+        data = json.load(file)
+    
+    for item in data:
+            prompt = item["prompt"]
+            response, execution_time = gpt_neo(prompt)
+            correct_answer = item['expected_completion']
+            is_correct, match_score = evaluateResponse(response, correct_answer, prompt, 80)
+            print(f"Prompt: {prompt}")
+            print(f"Response: {response}")
+            print(f"Correct answer: {correct_answer}")
+            print(f"Match score: {match_score}")
+            print(f"Is correct: {is_correct}")
+            print(f"Execution time: {execution_time}")
+            print("-------------------\n")
 
 if __name__ == "__main__":
     # Parameters setup
@@ -71,17 +89,19 @@ if __name__ == "__main__":
     #     mlflow.log_metric("execution_time", execution_time)
     #     mlflow.log_text("response", response)
 
-    prompt = "15 divided by 3 is equal to "
-    response, execution_time = gpt_neo(prompt=prompt)
+    # prompt = "15 divided by 3 is equal to "
+    # response, execution_time = gpt_neo(prompt=prompt)
 
-    # Evaluate response
-    correct_answer = "5"
-    acceptance_threshold = 80
-    is_correct, match_score = evaluateResponse(response, correct_answer, prompt, acceptance_threshold)
-    print(f"Response: {response}")
-    print(f"Standardized response: {standardizeResponse(response)}")
-    print(f"Correct answer: {correct_answer}")
-    print(f"Match score: {match_score}")
-    print(f"Is correct: {is_correct}")
+    # # Evaluate response
+    # correct_answer = "5"
+    # acceptance_threshold = 80
+    # is_correct, match_score = evaluateResponse(response, correct_answer, prompt, acceptance_threshold)
+    # print(f"Response: {response}")
+    # print(f"Standardized response: {standardizeResponse(response)}")
+    # print(f"Correct answer: {correct_answer}")
+    # print(f"Match score: {match_score}")
+    # print(f"Is correct: {is_correct}")
+
+    evaluate()
 
         

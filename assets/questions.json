@@ -40,13 +40,13 @@
         "category": "trivia"
     },
     {
-        "prompt": "Christmas falls on a",
-        "expected_completion": "Thursday in 2025",
+        "prompt": "In 2025, Christmas falls on a",
+        "expected_completion": "Thursday",
         "category": "temporal_knowledge"
     },
     {
-        "prompt": "There are",
-        "expected_completion": "120 months in a decade",
+        "prompt": "In a decade the number of months is",
+        "expected_completion": "120 ",
         "category": "temporal_knowledge"
     }
 ]
