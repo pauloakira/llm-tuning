@@ -71,12 +71,13 @@ if __name__ == "__main__":
     #     mlflow.log_metric("execution_time", execution_time)
     #     mlflow.log_text("response", response)
 
-    response, execution_time = gpt_neo(prompt="What is 15 divided by 3?")
+    prompt = "15 divided by 3 is equal to "
+    response, execution_time = gpt_neo(prompt=prompt)
 
     # Evaluate response
     correct_answer = "5"
     acceptance_threshold = 80
-    is_correct, match_score = evaluateResponse(response, correct_answer, acceptance_threshold)
+    is_correct, match_score = evaluateResponse(response, correct_answer, prompt, acceptance_threshold)
     print(f"Response: {response}")
     print(f"Standardized response: {standardizeResponse(response)}")
     print(f"Correct answer: {correct_answer}")

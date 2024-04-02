@@ -17,14 +17,25 @@ def standardizeResponse(response: str) -> str:
         pass
     return response
 
+def extract_relevant_answer(response: str, prompt: str) -> str:
+    # Find the end of the prompt in the response and extract text after that
+    prompt_end_index = response.find(prompt) + len(prompt)
+    relevant_answer = response[prompt_end_index:].strip()
+    return relevant_answer.split()[0]  # Assume the first word after the prompt is the answer
+
+
 def levensteinSimilarity(response1: str, response2: str) -> int:
     return fuzz.ratio(response1, response2)
 
-def evaluateResponse(llm_response: str, correct_answer: str, acceptance_threshold):
-    # Standardize responses
-    standardized_llm_response = standardizeResponse(llm_response)
+def evaluateResponse(llm_response: str, correct_answer: str, prompt: str, acceptance_threshold: int):
+    # Extract the relevant part of the response
+    relevant_llm_response = extract_relevant_answer(llm_response, prompt)
+    
+    # Standardize the extracted answer and the correct answer
+    standardized_llm_response = standardizeResponse(relevant_llm_response)
     standardized_correct_answer = standardizeResponse(correct_answer)
-     # Calculate Levenshtein distance (fuzzy match score)
+
+    # Calculate Levenshtein distance (fuzzy match score)
     match_score = levensteinSimilarity(standardized_llm_response, standardized_correct_answer)
 
     # Check if the match score meets the acceptance threshold
@@ -32,3 +43,4 @@ def evaluateResponse(llm_response: str, correct_answer: str, acceptance_threshol
         return True, match_score  # Response is accepted as correct
     else:
         return False, match_score  # Response is not accepted as correct
+
