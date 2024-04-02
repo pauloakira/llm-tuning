@@ -1,52 +1,52 @@
 [
     {
-        "question": "What is the capital of France?",
-        "answers": "Paris",
+        "prompt": "The capital of France is",
+        "expected_completion": "Paris",
         "category": "factual"
     },
     {
-        "question": "Who wrote 'To Kill a Mockingbird'?",
-        "answers": "Harper Lee",
+        "prompt": "'To Kill a Mockingbird' was written by",
+        "expected_completion": "Harper Lee",
         "category": "factual"
     },
     {
-        "question": "What is 15 divided by 3?",
-        "answers": "5",
+        "prompt": "15 divided by 3 equals",
+        "expected_completion": "5",
         "category": "mathematical"
     },
     {
-        "question": "If you have five apples and you give away two, how many do you have left?",
-        "answers": "3",
+        "prompt": "If you have five apples and you give away two, you have",
+        "expected_completion": "3",
         "category": "mathematical"
     },
     {
-        "question": "A bat and a ball cost $1.10 in total. The bat costs $1.00 more than the ball. How much does the ball cost?",
-        "answers": "5 cents",
+        "prompt": "A bat and a ball cost $1.10 in total. If the bat costs $1.00 more than the ball, the ball costs",
+        "expected_completion": "5 cents",
         "category": "logical_reasoning"
     },
     {
-        "question": "If all Bloops are Razzies and all Razzies are Lazzies, are all Bloops definitely Lazzies?",
-        "answers": "Yes",
+        "prompt": "If all Bloops are Razzies and all Razzies are Lazzies, it means all Bloops are",
+        "expected_completion": "definitely Lazzies",
         "category": "logical_reasoning"
     },
     {
-        "question": "What is the largest mammal in the world?",
-        "answers": "Blue whale",
+        "prompt": "The largest mammal in the world is the",
+        "expected_completion": "Blue whale",
         "category": "trivia"
     },
     {
-        "question": "In what year did the Titanic sink?",
-        "answers": "1912",
+        "prompt": "The Titanic sank in the year",
+        "expected_completion": "1912",
         "category": "trivia"
     },
     {
-        "question": "What day of the week does Christmas fall on in 2025?",
-        "answers": "Thursday",
+        "prompt": "Christmas falls on a",
+        "expected_completion": "Thursday in 2025",
         "category": "temporal_knowledge"
     },
     {
-        "question": "How many months are there in a decade?",
-        "answers": "120",
+        "prompt": "There are",
+        "expected_completion": "120 months in a decade",
         "category": "temporal_knowledge"
     }
 ]
