@@ -3,6 +3,7 @@ import time
 import json
 import torch
 import mlflow
+import numpy as np
 from typing import List
 from transformers import GPTNeoForCausalLM, GPT2Tokenizer
 
@@ -91,19 +92,33 @@ if __name__ == "__main__":
     # Evaluate the model
     evaluations = evaluate()
 
-    # Log evaluations to MLFlow
-    for item in evaluations:
-        with mlflow.start_run():
+    # Generate timestamp
+    timestamp = int(time.time()*1000)
+
+    with mlflow.start_run():
+         # Define a name for the run
+        mlflow.set_tag("mlflow.runName", f"LLM-Evaluation-{timestamp}")
+        scores = np.array([item.match_score for item in evaluations])
+        total_score = np.sum(scores) / len(scores)
+        std_dev = np.std(scores)
+        mlflow.log_metric({"total_score": total_score, "std_dev": std_dev})
+        # Iterate through each evaluation and log its details
+        for index, item in enumerate(evaluations, start=1):
+            # Log parameters for each item as a dictionary
+            # To avoid overwriting, prefix or suffix each key with a unique identifier (e.g., the index)
             mlflow.log_params({
-                "prompt": item.prompt,
-                "expected_completion": item.expected_completion,
-                "response": item.response
+                f"prompt_{index}": item.prompt,
+                f"expected_completion_{index}": item.expected_completion,
+                f"response_{index}": item.response
             })
+            
+            # Convert boolean to float for the "is_correct" metric
             is_correct_metric = 1.0 if item.is_correct else 0.0
+            # Log metrics for each item, also with a unique identifier
             mlflow.log_metrics({
-                "match_score": item.match_score,
-                "execution_time": item.execution_time,
-                "is_correct": is_correct_metric
+                f"match_score_{index}": item.match_score,
+                f"execution_time_{index}": item.execution_time,
+                f"is_correct_{index}": is_correct_metric
             })
 
     print("Evaluation completed.")

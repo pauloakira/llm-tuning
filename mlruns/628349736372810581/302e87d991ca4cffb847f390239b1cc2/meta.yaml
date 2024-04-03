@@ -1,8 +1,9 @@
 artifact_uri: file:///Users/pauloakira/Main/_repos/llm-tuning/mlruns/628349736372810581/302e87d991ca4cffb847f390239b1cc2/artifacts
+deleted_time: 1712108632833
 end_time: 1712032322915
 entry_point_name: ''
 experiment_id: '628349736372810581'
-lifecycle_stage: active
+lifecycle_stage: deleted
 run_id: 302e87d991ca4cffb847f390239b1cc2
 run_name: salty-steed-743
 run_uuid: 302e87d991ca4cffb847f390239b1cc2

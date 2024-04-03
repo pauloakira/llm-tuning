@@ -1,8 +1,9 @@
 artifact_uri: file:///Users/pauloakira/Main/_repos/llm-tuning/mlruns/628349736372810581/1399a69ad90b4fcb8c77daecfc15c0d4/artifacts
+deleted_time: 1712108632834
 end_time: 1712032322910
 entry_point_name: ''
 experiment_id: '628349736372810581'
-lifecycle_stage: active
+lifecycle_stage: deleted
 run_id: 1399a69ad90b4fcb8c77daecfc15c0d4
 run_name: selective-ray-283
 run_uuid: 1399a69ad90b4fcb8c77daecfc15c0d4

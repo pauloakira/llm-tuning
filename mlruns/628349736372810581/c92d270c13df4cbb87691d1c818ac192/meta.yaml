@@ -1,8 +1,9 @@
 artifact_uri: file:///Users/pauloakira/Main/_repos/llm-tuning/mlruns/628349736372810581/c92d270c13df4cbb87691d1c818ac192/artifacts
+deleted_time: 1712108632828
 end_time: 1712032322920
 entry_point_name: ''
 experiment_id: '628349736372810581'
-lifecycle_stage: active
+lifecycle_stage: deleted
 run_id: c92d270c13df4cbb87691d1c818ac192
 run_name: colorful-jay-908
 run_uuid: c92d270c13df4cbb87691d1c818ac192

@@ -1,8 +1,9 @@
 artifact_uri: file:///Users/pauloakira/Main/_repos/llm-tuning/mlruns/628349736372810581/a11c8ad72a764d3ba86fd52c50c0f1cf/artifacts
+deleted_time: 1712108632827
 end_time: 1712032322925
 entry_point_name: ''
 experiment_id: '628349736372810581'
-lifecycle_stage: active
+lifecycle_stage: deleted
 run_id: a11c8ad72a764d3ba86fd52c50c0f1cf
 run_name: polite-mouse-426
 run_uuid: a11c8ad72a764d3ba86fd52c50c0f1cf

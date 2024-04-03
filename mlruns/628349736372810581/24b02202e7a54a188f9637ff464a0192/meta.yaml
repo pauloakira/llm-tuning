@@ -1,8 +1,9 @@
 artifact_uri: file:///Users/pauloakira/Main/_repos/llm-tuning/mlruns/628349736372810581/24b02202e7a54a188f9637ff464a0192/artifacts
+deleted_time: 1712108632838
 end_time: 1712032322884
 entry_point_name: ''
 experiment_id: '628349736372810581'
-lifecycle_stage: active
+lifecycle_stage: deleted
 run_id: 24b02202e7a54a188f9637ff464a0192
 run_name: enthused-bear-187
 run_uuid: 24b02202e7a54a188f9637ff464a0192

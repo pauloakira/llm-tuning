@@ -1,0 +1,16 @@
+artifact_uri: file:///Users/pauloakira/Main/_repos/llm-tuning/mlruns/628349736372810581/555f1201624043e5805fbf0886d5af77/artifacts
+deleted_time: 1712108632827
+end_time: 1712108516162
+entry_point_name: ''
+experiment_id: '628349736372810581'
+lifecycle_stage: deleted
+run_id: 555f1201624043e5805fbf0886d5af77
+run_name: LLM-Evaluation-1712108515824
+run_uuid: 555f1201624043e5805fbf0886d5af77
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1712108516146
+status: 3
+tags: []
+user_id: pauloakira

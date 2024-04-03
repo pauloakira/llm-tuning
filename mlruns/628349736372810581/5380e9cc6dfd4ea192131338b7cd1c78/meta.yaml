@@ -1,8 +1,9 @@
 artifact_uri: file:///Users/pauloakira/Main/_repos/llm-tuning/mlruns/628349736372810581/5380e9cc6dfd4ea192131338b7cd1c78/artifacts
+deleted_time: 1712108632834
 end_time: 1712032322904
 entry_point_name: ''
 experiment_id: '628349736372810581'
-lifecycle_stage: active
+lifecycle_stage: deleted
 run_id: 5380e9cc6dfd4ea192131338b7cd1c78
 run_name: mysterious-pug-402
 run_uuid: 5380e9cc6dfd4ea192131338b7cd1c78

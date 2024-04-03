@@ -1,8 +1,9 @@
 artifact_uri: file:///Users/pauloakira/Main/_repos/llm-tuning/mlruns/628349736372810581/3f70c5f8402c4a4fa859e6939a8c0614/artifacts
+deleted_time: 1712108632838
 end_time: 1712032322894
 entry_point_name: ''
 experiment_id: '628349736372810581'
-lifecycle_stage: active
+lifecycle_stage: deleted
 run_id: 3f70c5f8402c4a4fa859e6939a8c0614
 run_name: awesome-conch-128
 run_uuid: 3f70c5f8402c4a4fa859e6939a8c0614

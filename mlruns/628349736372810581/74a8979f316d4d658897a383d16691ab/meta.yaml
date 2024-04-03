@@ -1,8 +1,9 @@
 artifact_uri: file:///Users/pauloakira/Main/_repos/llm-tuning/mlruns/628349736372810581/74a8979f316d4d658897a383d16691ab/artifacts
+deleted_time: 1712108632827
 end_time: 1712032322930
 entry_point_name: ''
 experiment_id: '628349736372810581'
-lifecycle_stage: active
+lifecycle_stage: deleted
 run_id: 74a8979f316d4d658897a383d16691ab
 run_name: polite-chimp-759
 run_uuid: 74a8979f316d4d658897a383d16691ab
