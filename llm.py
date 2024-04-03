@@ -52,6 +52,9 @@ def gpt_neo(prompt:str, quantize: bool=False)-> str:
 
     return gen_text, execution_time
 
+def llama(prompt:str, quantize: bool)-> str:
+    pass
+
 def evaluate()-> List[Evaluation]:
     with open("assets/questions.json", "r") as file:
         data = json.load(file)
@@ -101,11 +104,10 @@ if __name__ == "__main__":
         scores = np.array([item.match_score for item in evaluations])
         total_score = np.sum(scores) / len(scores)
         std_dev = np.std(scores)
-        mlflow.log_metric({"total_score": total_score, "std_dev": std_dev})
+        mlflow.log_metrics({"total_score": total_score, "std_dev": std_dev})
         # Iterate through each evaluation and log its details
         for index, item in enumerate(evaluations, start=1):
             # Log parameters for each item as a dictionary
-            # To avoid overwriting, prefix or suffix each key with a unique identifier (e.g., the index)
             mlflow.log_params({
                 f"prompt_{index}": item.prompt,
                 f"expected_completion_{index}": item.expected_completion,
