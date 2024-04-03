@@ -5,7 +5,7 @@ import torch
 import mlflow
 import numpy as np
 from typing import List
-from transformers import GPTNeoForCausalLM, GPT2Tokenizer, AutoTokenizer, FalconForCausalLM
+from transformers import GPTNeoForCausalLM, GPT2Tokenizer, AutoTokenizer, FalconForCausalLM, AutoModelForCausalLM
 
 # Custom libs
 from models import Evaluation
@@ -91,6 +91,13 @@ def falcon(prompt:str, quantize: bool = False)-> str:
 
     return gen_text, execution_time
 
+def falcon7b():
+    model_path = "llm_falcon7b"
+    print("Loading Falcon 7B model...")
+    model = AutoModelForCausalLM.from_pretrained("tiiuae/falcon-7b", cache_dir=model_path)
+    tokenizer = AutoTokenizer.from_pretrained("tiiuae/falcon-7b", cache_dir=model_path)
+    print("Falcon 7B model loaded.")
+
 
 def evaluate(model_name: str = "gpt_neo")-> List[Evaluation]:
     with open("assets/questions.json", "r") as file:
@@ -131,45 +138,47 @@ def evaluate(model_name: str = "gpt_neo")-> List[Evaluation]:
     return evaluation_list
 
 if __name__ == "__main__":
-    # Set MLFlow experiment
-    mlflow.set_experiment("LLM Evaluation")
+    # # Set MLFlow experiment
+    # mlflow.set_experiment("LLM Evaluation")
 
-    # Evaluate the model
-    model_name = "falcon_1b"
-    evaluations = evaluate(model_name=model_name)
+    # # Evaluate the model
+    # model_name = "falcon_1b"
+    # evaluations = evaluate(model_name=model_name)
 
-    # Generate timestamp
-    timestamp = int(time.time()*1000)
+    # # Generate timestamp
+    # timestamp = int(time.time()*1000)
 
-    with mlflow.start_run():
-         # Define a name for the run
-        mlflow.set_tag("mlflow.runName", f"LLM-Evaluation-{model_name}-{timestamp}")
-        scores = np.array([item.match_score for item in evaluations])
-        total_score = np.sum(scores) / len(scores)
-        std_dev = np.std(scores)
-        mlflow.log_metrics({"total_score": total_score, "std_dev": std_dev})
-        # Iterate through each evaluation and log its details
-        for index, item in enumerate(evaluations, start=1):
-            # Log parameters for each item as a dictionary
-            mlflow.log_params({
-                f"prompt_{index}": item.prompt,
-                f"expected_completion_{index}": item.expected_completion,
-                f"response_{index}": item.response
-            })
+    # with mlflow.start_run():
+    #      # Define a name for the run
+    #     mlflow.set_tag("mlflow.runName", f"LLM-Evaluation-{model_name}-{timestamp}")
+    #     scores = np.array([item.match_score for item in evaluations])
+    #     total_score = np.sum(scores) / len(scores)
+    #     std_dev = np.std(scores)
+    #     mlflow.log_metrics({"total_score": total_score, "std_dev": std_dev})
+    #     # Iterate through each evaluation and log its details
+    #     for index, item in enumerate(evaluations, start=1):
+    #         # Log parameters for each item as a dictionary
+    #         mlflow.log_params({
+    #             f"prompt_{index}": item.prompt,
+    #             f"expected_completion_{index}": item.expected_completion,
+    #             f"response_{index}": item.response
+    #         })
             
-            # Convert boolean to float for the "is_correct" metric
-            is_correct_metric = 1.0 if item.is_correct else 0.0
-            # Log metrics for each item, also with a unique identifier
-            mlflow.log_metrics({
-                f"match_score_{index}": item.match_score,
-                f"execution_time_{index}": item.execution_time,
-                f"is_correct_{index}": is_correct_metric
-            })
+    #         # Convert boolean to float for the "is_correct" metric
+    #         is_correct_metric = 1.0 if item.is_correct else 0.0
+    #         # Log metrics for each item, also with a unique identifier
+    #         mlflow.log_metrics({
+    #             f"match_score_{index}": item.match_score,
+    #             f"execution_time_{index}": item.execution_time,
+    #             f"is_correct_{index}": is_correct_metric
+    #         })
 
-    print("Evaluation completed.")
+    # print("Evaluation completed.")
      
-    response, exec_time = falcon("If you have five apples and you give away two, you have")
-    print(response)
+    # response, exec_time = falcon("If you have five apples and you give away two, you have")
+    # print(response)
+
+    falcon7b()
     
 
         
