@@ -1,5 +1,6 @@
 # llms
 llm_gpt_neo
+llm_falcon
 
 # caching
 __pycache__/
