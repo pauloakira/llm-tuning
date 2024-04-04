@@ -91,12 +91,43 @@ def falcon(prompt:str, quantize: bool = False)-> str:
 
     return gen_text, execution_time
 
-def falcon7b():
+def falcon7b(prompt:str, quantize: bool = False)-> str:
     model_path = "llm_falcon7b"
     print("Loading Falcon 7B model...")
     model = AutoModelForCausalLM.from_pretrained("tiiuae/falcon-7b", cache_dir=model_path)
     tokenizer = AutoTokenizer.from_pretrained("tiiuae/falcon-7b", cache_dir=model_path)
     print("Falcon 7B model loaded.")
+
+    # Set the pad token id to the eos token id
+    tokenizer.pad_token = tokenizer.eos_token
+
+    # Quantize model
+    if quantize:
+        model = torch.quantization.quantize_dynamic(model, {torch.nn.Linear}, dtype=torch.float16)
+
+    start_time = time.time()
+
+    encoding = tokenizer(prompt, return_tensors="pt", padding=True, truncation=True)
+    input_ids = encoding["input_ids"]
+    attention_mask = encoding["attention_mask"]
+
+    gen_tokens = model.generate(
+        input_ids,
+        attention_mask=attention_mask,
+        pad_token_id=tokenizer.eos_token_id,
+        do_sample=True,  # Enable sampling to introduce randomness
+        temperature=0.1,  # Adjust temperature to balance randomness and determinism
+        max_length=30,  # Adjust max_length to fit your needs
+        top_k=50,  # Consider adjusting top_k
+        top_p=0.95,  # Consider adjusting top_p
+        num_return_sequences=1,  # Set the number of responses you want
+    )
+
+    gen_text = tokenizer.batch_decode(gen_tokens)[0]
+
+    execution_time = time.time() - start_time
+
+    return gen_text, execution_time
 
 
 def evaluate(model_name: str = "gpt_neo")-> List[Evaluation]:
@@ -178,7 +209,4 @@ if __name__ == "__main__":
     # response, exec_time = falcon("If you have five apples and you give away two, you have")
     # print(response)
 
-    falcon7b()
-    
-
-        
+    print(falcon7b("'Dog' in Brazilian Porguese is "))
