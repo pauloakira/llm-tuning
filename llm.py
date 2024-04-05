@@ -13,14 +13,31 @@ from performance import evaluateResponse
 
 torch.backends.quantized.engine = 'qnnpack'  # For ARM CPUs
 
-def gpt_neo(prompt:str, quantize: bool=False)-> str:
-    model_path = "llm_gpt_neo"
+def load_model(model_name: str)-> torch.nn.Module:
+    if model_name == "gpt_neo":
+        model_path = "llm_gpt_neo"
+        print("Loading GPT-Neo model...")
+        model = GPTNeoForCausalLM.from_pretrained("EleutherAI/gpt-neo-1.3B", cache_dir=model_path)
+        tokenizer = GPT2Tokenizer.from_pretrained("EleutherAI/gpt-neo-1.3B", cache_dir=model_path)
+        print("Model loaded.")
+    elif model_name == "falcon_1b":
+        model_path = "llm_falcon"
+        print("Loading Falcon 1B model...")
+        model = FalconForCausalLM.from_pretrained("Rocketknight1/falcon-rw-1b", cache_dir=model_path)
+        tokenizer = AutoTokenizer.from_pretrained("Rocketknight1/falcon-rw-1b", cache_dir=model_path)
+        print("Model loaded.")
+    elif model_name == "falcon_7b":
+        model_path = "llm_falcon7b"
+        print("Loading Falcon 7B model...")
+        model = AutoModelForCausalLM.from_pretrained("tiiuae/falcon-7b", cache_dir=model_path)
+        tokenizer = AutoTokenizer.from_pretrained("tiiuae/falcon-7b", cache_dir=model_path)
+        print("Model loaded.")
+    else:
+        raise ValueError("Invalid model name.")
+    
+    return model, tokenizer
 
-    print("Loading GPT-Neo 1.3B model...")
-    model = GPTNeoForCausalLM.from_pretrained("EleutherAI/gpt-neo-1.3B", cache_dir=model_path)
-    tokenizer = GPT2Tokenizer.from_pretrained("EleutherAI/gpt-neo-1.3B", cache_dir=model_path)
-    print("GPT-Neo 1.3B model loaded.")
-
+def generate_response(model: torch.nn.Module, tokenizer: torch.nn.Module, prompt: str, quantize: bool = False)-> str:
     # Set the pad token id to the eos token id
     tokenizer.pad_token = tokenizer.eos_token
 
@@ -40,8 +57,8 @@ def gpt_neo(prompt:str, quantize: bool=False)-> str:
         pad_token_id=tokenizer.eos_token_id,
         do_sample=True,  # Enable sampling to introduce randomness
         temperature=0.1,  # Adjust temperature to balance randomness and determinism
-        max_length=30,  # Adjust max_length to fit your needs
-        top_k=50,  # Consider adjusting top_k
+        max_length=550,  # Adjust max_length to fit your needs
+        top_k=10,  # Consider adjusting top_k
         top_p=0.95,  # Consider adjusting top_p
         num_return_sequences=1,  # Set the number of responses you want
     )
@@ -51,100 +68,19 @@ def gpt_neo(prompt:str, quantize: bool=False)-> str:
     execution_time = time.time() - start_time
 
     return gen_text, execution_time
-
-def falcon(prompt:str, quantize: bool = False)-> str:
-    model_path = "llm_falcon"
-
-    print("Loading Falcon 1B model...")
-    model = FalconForCausalLM.from_pretrained("Rocketknight1/falcon-rw-1b", cache_dir=model_path)
-    tokenizer = AutoTokenizer.from_pretrained("Rocketknight1/falcon-rw-1b", cache_dir=model_path)
-    print("Falcon 1B model loaded.")
-
-    # Set the pad token id to the eos token id
-    tokenizer.pad_token = tokenizer.eos_token
-
-    # Quantize model
-    if quantize:
-        model = torch.quantization.quantize_dynamic(model, {torch.nn.Linear}, dtype=torch.float16)
-
-    start_time = time.time()
-
-    encoding = tokenizer(prompt, return_tensors="pt", padding=True, truncation=True)
-    input_ids = encoding["input_ids"]
-    attention_mask = encoding["attention_mask"]
-
-    gen_tokens = model.generate(
-        input_ids,
-        attention_mask=attention_mask,
-        pad_token_id=tokenizer.eos_token_id,
-        do_sample=True,  # Enable sampling to introduce randomness
-        temperature=0.5,  # Adjust temperature to balance randomness and determinism
-        max_length=30,  # Adjust max_length to fit your needs
-        top_k=50,  # Consider adjusting top_k
-        top_p=0.95,  # Consider adjusting top_p
-        num_return_sequences=1,  # Set the number of responses you want
-    )
-
-    gen_text = tokenizer.batch_decode(gen_tokens)[0]
-
-    execution_time = time.time() - start_time
-
-    return gen_text, execution_time
-
-def falcon7b(prompt:str, quantize: bool = False)-> str:
-    model_path = "llm_falcon7b"
-    print("Loading Falcon 7B model...")
-    model = AutoModelForCausalLM.from_pretrained("tiiuae/falcon-7b", cache_dir=model_path)
-    tokenizer = AutoTokenizer.from_pretrained("tiiuae/falcon-7b", cache_dir=model_path)
-    print("Falcon 7B model loaded.")
-
-    # Set the pad token id to the eos token id
-    tokenizer.pad_token = tokenizer.eos_token
-
-    # Quantize model
-    if quantize:
-        model = torch.quantization.quantize_dynamic(model, {torch.nn.Linear}, dtype=torch.float16)
-
-    start_time = time.time()
-
-    encoding = tokenizer(prompt, return_tensors="pt", padding=True, truncation=True)
-    input_ids = encoding["input_ids"]
-    attention_mask = encoding["attention_mask"]
-
-    gen_tokens = model.generate(
-        input_ids,
-        attention_mask=attention_mask,
-        pad_token_id=tokenizer.eos_token_id,
-        do_sample=True,  # Enable sampling to introduce randomness
-        temperature=0.1,  # Adjust temperature to balance randomness and determinism
-        max_length=600,  # Adjust max_length to fit your needs
-        top_k=50,  # Consider adjusting top_k
-        top_p=0.95,  # Consider adjusting top_p
-        num_return_sequences=1,  # Set the number of responses you want
-    )
-
-    gen_text = tokenizer.batch_decode(gen_tokens)[0]
-
-    execution_time = time.time() - start_time
-
-    return gen_text, execution_time
-
 
 def evaluate(model_name: str = "gpt_neo")-> List[Evaluation]:
     with open("assets/questions.json", "r") as file:
         data = json.load(file)
 
     evaluation_list = []
+
+    model, tokenizer = load_model(model_name)
     
     for item in data:
             start_time = time.time()
             prompt = item["prompt"]
-            if model_name == "gpt_neo":
-                response, execution_time = gpt_neo(prompt)
-            elif model_name == "falcon_1b":
-                response, execution_time = falcon(prompt)
-            else:
-                raise ValueError("Invalid model name.")
+            response, execution_time = generate_response(model, tokenizer, prompt)
             correct_answer = item['expected_completion']
             is_correct, match_score = evaluateResponse(response, correct_answer, prompt, 70)
             print(f"Prompt: {prompt}")
@@ -168,48 +104,49 @@ def evaluate(model_name: str = "gpt_neo")-> List[Evaluation]:
 
     return evaluation_list
 
-if __name__ == "__main__":
-    # # Set MLFlow experiment
-    # mlflow.set_experiment("LLM Evaluation")
+def mlflowPipeline(model_name: str = "gpt_neo"):
+    # Set MLFlow experiment
+    mlflow.set_experiment("LLM Evaluation")
 
-    # # Evaluate the model
-    # model_name = "falcon_1b"
-    # evaluations = evaluate(model_name=model_name)
+    # Evaluate the model
+    evaluations = evaluate(model_name=model_name)
 
-    # # Generate timestamp
-    # timestamp = int(time.time()*1000)
+    # Generate timestamp
+    timestamp = int(time.time()*1000)
 
-    # with mlflow.start_run():
-    #      # Define a name for the run
-    #     mlflow.set_tag("mlflow.runName", f"LLM-Evaluation-{model_name}-{timestamp}")
-    #     scores = np.array([item.match_score for item in evaluations])
-    #     total_score = np.sum(scores) / len(scores)
-    #     std_dev = np.std(scores)
-    #     mlflow.log_metrics({"total_score": total_score, "std_dev": std_dev})
-    #     # Iterate through each evaluation and log its details
-    #     for index, item in enumerate(evaluations, start=1):
-    #         # Log parameters for each item as a dictionary
-    #         mlflow.log_params({
-    #             f"prompt_{index}": item.prompt,
-    #             f"expected_completion_{index}": item.expected_completion,
-    #             f"response_{index}": item.response
-    #         })
+    with mlflow.start_run():
+         # Define a name for the run
+        mlflow.set_tag("mlflow.runName", f"LLM-Evaluation-{model_name}-{timestamp}")
+        scores = np.array([item.match_score for item in evaluations])
+        total_score = np.sum(scores) / len(scores)
+        std_dev = np.std(scores)
+        mlflow.log_metrics({"total_score": total_score, "std_dev": std_dev})
+        # Iterate through each evaluation and log its details
+        for index, item in enumerate(evaluations, start=1):
+            # Log parameters for each item as a dictionary
+            mlflow.log_params({
+                f"prompt_{index}": item.prompt,
+                f"expected_completion_{index}": item.expected_completion,
+                f"response_{index}": item.response
+            })
             
-    #         # Convert boolean to float for the "is_correct" metric
-    #         is_correct_metric = 1.0 if item.is_correct else 0.0
-    #         # Log metrics for each item, also with a unique identifier
-    #         mlflow.log_metrics({
-    #             f"match_score_{index}": item.match_score,
-    #             f"execution_time_{index}": item.execution_time,
-    #             f"is_correct_{index}": is_correct_metric
-    #         })
+            # Convert boolean to float for the "is_correct" metric
+            is_correct_metric = 1.0 if item.is_correct else 0.0
+            # Log metrics for each item, also with a unique identifier
+            mlflow.log_metrics({
+                f"match_score_{index}": item.match_score,
+                f"execution_time_{index}": item.execution_time,
+                f"is_correct_{index}": is_correct_metric
+            })
 
-    # print("Evaluation completed.")
-     
-    # response, exec_time = falcon("If you have five apples and you give away two, you have")
-    # print(response)
+    print("Evaluation completed.")
+
+if __name__ == "__main__":
+    
 
     prompt = """
     Can you classify this abstract: "The quality of texts generated by natural language generation (NLG) systems is hard to measure automatically. Conventional reference-based metrics, such as BLEU and ROUGE, have been shown to have relatively low correlation with human judgments, especially for tasks that require creativity and diversity. Recent studies suggest using large language models (LLMs) as reference-free metrics for NLG evaluation, which have the benefit of being applicable to new tasks that lack human references. However, these LLM-based evaluators still have lower human correspondence than medium-size neural evaluators. In this work, we present G-Eval, a framework of using large language models with chain-of-thoughts (CoT) and a form-filling paradigm, to assess the quality of NLG outputs. We experiment with two generation tasks, text summarization and dialogue generation. We show that G-Eval with GPT-4 as the backbone model achieves a Spearman correlation of 0.514 with human on summarization task, outperforming all previous methods by a large margin. We also propose preliminary analysis on the behavior of LLM-based evaluators, and highlight the potential issue of LLM-based evaluators having a bias towards the LLM-generated texts." in one of the following categories: "Machine Learning", "Deep Learning", "Natural Language Processing", "Computer Vision", "High Dimensional PDE", "Nonlinear PDE", "Transformers", "Optimization", "Artificial Neural Network", "Multi-modal Large Language Model", "Linear Operators", "Nonlinear Operators", "Synthetic Data", "Large Language Model", "Prompt Engineering", "Inference Techniques", "Convolutional Neural Network", "Probabilistic Models", "Physics-informed Neural Network", "Memory Mechanisms in LLMs", "Retrieval Augmented Generation", "Fine-tuning Strategies", "Quantization", "Small Language Models", "Linear Optimization", "Nonlinear Optimization", "Ethics and Fairness in AI", "Healthcare Applications of AI", "Robotics and Autonomous Systems", "Finance and Economics Applications", "Legal and Ethical AI", "Quantum Machine Learning", "Federated Learning", "AI for Climate Change", "Open-Source AI Projects", "Platform-Specific Development", "Evaluation and Benchmarks"?"""
 
-    print(falcon7b(prompt))
+    model, tokenizer = load_model("falcon_7b")
+    response, exec_time = generate_response(model, tokenizer, prompt)
+    print(response)
