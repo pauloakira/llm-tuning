@@ -2,6 +2,7 @@
 llm_gpt_neo
 llm_falcon
 llm_falcon7b
+llm_mistral7b
 
 # caching
 __pycache__/
