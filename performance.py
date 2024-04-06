@@ -27,7 +27,7 @@ def extract_relevant_answer(response: str, prompt: str) -> str:
 def levensteinSimilarity(response1: str, response2: str) -> int:
     return fuzz.ratio(response1, response2)
 
-def evaluateResponse(llm_response: str, correct_answer: str, prompt: str, acceptance_threshold: int):
+def evaluateResponseWithContinuousScore(llm_response: str, correct_answer: str, prompt: str, acceptance_threshold: int):
     # Extract the relevant part of the response
     relevant_llm_response = extract_relevant_answer(llm_response, prompt)
     
@@ -43,4 +43,9 @@ def evaluateResponse(llm_response: str, correct_answer: str, prompt: str, accept
         return True, match_score  # Response is accepted as correct
     else:
         return False, match_score  # Response is not accepted as correct
+    
+def checkResponse(response: str, correct_answer: str)->bool:
+    tokens = re.split(r'[\s,.;?!]+', response.lower())  # Lowercasing to normalize
+    correct_answer = correct_answer.lower()
+    return correct_answer in tokens
 

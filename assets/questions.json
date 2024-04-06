@@ -16,7 +16,7 @@
     },
     {
         "prompt": "If you have five apples and you give away two, you have",
-        "expected_completion": "3",
+        "expected_completion": "three",
         "category": "mathematical"
     },
     {
@@ -26,7 +26,7 @@
     },
     {
         "prompt": "If all Bloops are Razzies and all Razzies are Lazzies, it means all Bloops are",
-        "expected_completion": "definitely Lazzies",
+        "expected_completion": "Lazzies",
         "category": "logical_reasoning"
     },
     {
