@@ -205,7 +205,7 @@ if __name__ == "__main__":
     # model, tokenizer = load_model_with_mlx("mistral_7b")
     # model, tokenizer = load_model_with_mlx("gemma-2b-it")
     model, tokenizer = load_model_with_mlx("qwen-0.5b-chat")
-    response = generate(model, tokenizer, prompt="Hello", verbose=False)
+    response = generate(model, tokenizer, prompt="Who are you?", verbose=False)
     print(response)
     # response = generate(model, tokenizer, prompt=prompt, verbose=False)
     # print(response)
