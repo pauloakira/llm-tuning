@@ -52,6 +52,10 @@ def load_model_with_mlx(model_name: str)-> torch.nn.Module:
         print("Loading Gemma 2B IT model with MLX...")
         model, tokenizer = load("mlx-community/quantized-gemma-2b-it")
         print("Model loaded.")
+    if model_name == "qwen-0.5b-chat":
+        print("Loading Qwen 1.5 0.5B Chat model with MLX...")
+        model, tokenizer = load("mlx-community/Qwen1.5-0.5B-Chat")
+        print("Model loaded.")
     else:
         raise ValueError("Invalid model name.")
     
@@ -200,10 +204,12 @@ if __name__ == "__main__":
 
     # model, tokenizer = load_model_with_mlx("mistral_7b")
     # model, tokenizer = load_model_with_mlx("gemma-2b-it")
-    # response = generate(model, tokenizer, prompt=prompt, verbose=False)
+    model, tokenizer = load_model_with_mlx("qwen-0.5b-chat")
+    response = generate(model, tokenizer, prompt="Hello", verbose=False)
+    print(response)
     # response = generate(model, tokenizer, prompt=prompt, verbose=False)
     # print(response)
 
-    score = evaluateMLXModels("gemma-2b-it")
-    print(f"Score for Gemma 2B IT: {score}")
+    # score = evaluateMLXModels("gemma-2b-it")
+    # print(f"Score for Gemma 2B IT: {score}")
     
